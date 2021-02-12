@@ -1,0 +1,7 @@
+{% extends 'home.html' %}
+{% block content %}
+  <h1>Bienvenido | {{name}}</h1> <br/>
+  {% for categoria in categorias %}
+    <h4>{{categoria.id}} - {{categoria.nombre}}</h4>
+  {% endfor %}
+{% endblock %}
