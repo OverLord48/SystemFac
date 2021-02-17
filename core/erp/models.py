@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.forms import model_to_dict
 # Create your models here.
 
 # class Type(models.Model):
@@ -79,6 +80,9 @@ class Categorias (models.Model):
     class Meta:
         verbose_name = 'Categoria'
         verbose_name_plural = 'Categorias'
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
 
 class Productos (models.Model):
     nombre = models.CharField(max_length=150, verbose_name='Nombre')

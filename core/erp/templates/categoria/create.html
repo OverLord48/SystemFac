@@ -1,0 +1,30 @@
+{% extends 'home.html' %}
+
+{% block content %}
+    <form method="POST" action=".">
+      <div class="card card-primary card-outline my-4">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-plus"></i>
+            {{title}}
+          </h3>
+        </div> <!-- /.card-body -->
+        <div class="card-body">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="nombre">{{form.nombre.label}}:</label>
+            {{form.nombre}}
+          </div>
+        
+        </div><!-- /.card-body -->
+        <div class="card-footer">
+          {% block footOptions %}
+            <button type="submit" class="btn btn-outline-primary btn-flat">
+              <i class="fas fa-save"></i> Guardar Registro
+            </button>
+          {% endblock %}
+        </div>
+      </form>
+    </div>
+
+{% endblock %}

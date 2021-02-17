@@ -1,0 +1,53 @@
+{% extends 'listTable.html' %}
+
+
+{% block columns %}
+  <th scope="col">Nro</th>
+  <th scope="col">Nombre</th>
+  <th scope="col">Opciones</th>
+{% endblock %}
+
+{% block rows %}
+  {% for categoria in object_list %}
+    <tr>
+      <th scope="col">{{categoria.id}}</th>
+      <th scope="col">{{categoria.nombre}}</th>
+      <th scope="col">
+        <button type="button" class="btn btn-outline-success btn-xs btn-flat"><i class="fas fa-edit"></i></button>
+        <button type="button" class="btn btn-outline-danger btn-xs btn-flat"><i class="fas fa-trash-alt"></i></button>
+      </th>
+    </tr>
+  {% endfor %}
+
+{% endblock %}
+
+{% block footOptions %}
+  <button type="button" class="btn btn-outline-primary btn-flat btnTest"><i class="fas fa-plus"></i> Nuevo Registro </button>
+{% endblock %}
+
+{% block jscript %}
+  <script>
+      $(document).ready(()=>{
+        $('.tableList').DataTable({
+          resposive:true,
+          autoWidth:false
+        });
+
+        $('.btnTest').on('click', ()=>{
+          $.ajax({
+            url: '{% url 'erp:categorialist' %}',
+            type:"POST",
+            data: {id:2},
+            dataType: 'json'
+          }).done((data)=>{
+            console.log(data)
+          }).fail((data)=>{
+            console.log("error")
+          }).always((data)=>{
+
+          })
+        });
+      });
+    </script>
+
+{% endblock %}

@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Top Navigation</title>
+    <title>{{title}}</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{% static 'lib/plugins/fontawesome-free/css/all.min.css' %}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{% static 'lib/adminlte/css/adminlte.min.css' %}">
+    <!-- Datatable -->
+    <link rel="stylesheet" href="{% static 'lib/dataTable/datatables.min.css' %}">
   </head>
   <body class="hold-transition layout-top-nav">
     <div class="wrapper">
@@ -20,10 +22,11 @@
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-      
-        {% block content %}
-            <h1>Bienvenido {{name}}</h1>
-        {% endblock %}
+        <div class="container">
+          {% block content %}
+              <h1>Bienvenido {{name}}</h1>
+          {% endblock %}
+        </div>
       
       </div>
       <!-- /.content-wrapper -->
@@ -53,5 +56,12 @@
     <script src="{% static 'lib/adminlte/js/adminlte.min.js' %}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{% static 'lib/adminlte/js/demo.js' %}"></script>
+    <!-- Datatable -->
+    <script src="{% static 'lib/dataTable/datatables.min.js' %}"></script>
+    
+    {% block jscript %}
+    
+    {% endblock %}
+    
   </body>
 </html>
