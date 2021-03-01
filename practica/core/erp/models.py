@@ -74,6 +74,7 @@ class Ventas (models.Model):
 
 class Categorias (models.Model):
     nombre = models.CharField(max_length=90, verbose_name='Nombre', unique=True)
+    descripcion = models.CharField(max_length = 150, verbose_name='Descripcion')
     
     def __str__(self):
         return self.nombre
@@ -102,3 +103,4 @@ class Detalles_venta (models.Model):
     subtotal = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     venta_id = models.ForeignKey(Ventas, on_delete=models.CASCADE)
     producto_id = models.ForeignKey(Categorias, on_delete=models.CASCADE)
+
