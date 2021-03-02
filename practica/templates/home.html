@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{% static 'lib/adminlte/css/adminlte.min.css' %}">
     <!-- Datatable -->
     <link rel="stylesheet" href="{% static 'lib/dataTable/datatables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'lib/plugins/sweetalert2/sweetalert2.min.css' %}">
   </head>
   <body class="hold-transition layout-top-nav">
     <div class="wrapper">
@@ -26,8 +27,8 @@
           {% block content %}
               <h1>Bienvenido {{name}}</h1>
           {% endblock %}
+        
         </div>
-      
       </div>
       <!-- /.content-wrapper -->
 
@@ -58,6 +59,8 @@
     <script src="{% static 'lib/adminlte/js/demo.js' %}"></script>
     <!-- Datatable -->
     <script src="{% static 'lib/dataTable/datatables.min.js' %}"></script>
+    <!-- SweetAlert -->
+    <script src="{% static 'lib/plugins/sweetalert2/sweetalert2.min.js' %}"></script>
     
     {% block jscript %}
     

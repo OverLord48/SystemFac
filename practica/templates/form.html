@@ -1,0 +1,74 @@
+{% extends 'home.html' %}
+
+{% block content %}
+    <form method="POST" action=".">
+      <div class="card card-primary card-outline my-4">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-plus"></i>
+            {{title}}
+          </h3>
+        </div> <!-- /.card-body -->
+        <div class="card-body">
+          {% csrf_token %}
+
+          
+          <!-- {% if form.errors %}
+            <div class="alert alert-danger alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+              <h5><i class="icon fas fa-ban"></i>Ha ocurrido un fallo al intentar enviar el formulario</h5>
+              <ul>
+                {% for field in form %}
+                  {% for error in field.errors %}
+                    <li>{{error}}</li>
+                  {% endfor %}
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %} -->
+
+          {% for field in form.visible_fields %}
+            <div class="form-group">
+              <label for="nombre">{{field.label}}:</label>
+              {{field}}
+            </div>
+          {% endfor %}
+        
+        </div><!-- /.card-body -->
+        <div class="card-footer">
+          {% block footOptions %}
+            <button type="submit" class="btn btn-outline-primary btn-flat">
+              <i class="fas fa-save"></i> Guardar Registro
+            </button>
+          {% endblock %}
+        </div>
+      </form>
+    </div>
+    
+    {% block jscript %}
+    <script>
+    {% if form.errors %}
+      var errors = '';
+      
+      {% for field in form %}
+        
+        {% for error in field.errors %}
+
+            errors += '{{error}}\n';
+        
+        {% endfor %}
+      
+      {% endfor %}
+  
+      Swal.fire({
+        title: 'Error!',
+        text: errors,
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      });
+    {% endif %}
+    </script>
+    {% endblock %}
+      
+
+{% endblock %}

@@ -22,7 +22,9 @@
 {% endblock %}
 
 {% block footOptions %}
-  <button type="button" class="btn btn-outline-primary btn-flat btnTest"><i class="fas fa-plus"></i> Nuevo Registro </button>
+  <a href="{{ create_url }}" type="button" class="btn btn-outline-primary btn-flat btnTest">
+    <i class="fas fa-plus"></i> Nuevo Registro 
+  </a>
 {% endblock %}
 
 {% block jscript %}
