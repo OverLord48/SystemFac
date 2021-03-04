@@ -1,7 +1,7 @@
 {% extends 'home.html' %}
 
 {% block content %}
-    <form method="POST" action=".">
+    <form method="POST" action="." id="formFields">
       <div class="card card-primary card-outline my-4">
         <div class="card-header">
           <h3 class="card-title">
@@ -11,7 +11,7 @@
         </div> <!-- /.card-body -->
         <div class="card-body">
           {% csrf_token %}
-
+          <input type="hidden" name="action" value="{{ action }}">
           
           <!-- {% if form.errors %}
             <div class="alert alert-danger alert-dismissible">
@@ -44,9 +44,11 @@
         </div>
       </form>
     </div>
-    
-    {% block jscript %}
-    <script>
+
+{% endblock %}
+
+{% block jscript %}
+  <script>
     {% if form.errors %}
       var errors = '';
       
@@ -67,8 +69,22 @@
         confirmButtonText: 'Ok'
       });
     {% endif %}
-    </script>
-    {% endblock %}
+    $('#formFields').on('submit', (ev) => {
+      ev.preventDefault();
       
-
+      let parameters = $('#formFields').serializeArray();
+      console.log(parameters);
+      $.ajax({
+        url: '{% url 'erp:categoriaCreate' %}',
+        type: 'POST',
+        data: parameters,
+        dataType: 'json'
+      }).done((data)=>{
+        if (!data.hasOwnProperty('error')){
+          location.href = '{{ categorialist }}'
+        }
+        message_error(data.error)
+      })
+    });
+  </script>
 {% endblock %}
