@@ -1,0 +1,61 @@
+{% extends 'home.html' %}
+
+{% block content %}
+    <form method="POST" action="." id="formFields">
+      <div class="card card-primary card-outline my-4">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-trash"></i>
+            {{title}}
+          </h3>
+        </div> <!-- /.card-body -->
+        <div class="card-body">
+          {% csrf_token %}
+            <input type="hidden" name="action" value="{{ action }}">
+
+            <div class="alert alert-info alert-dismissible">
+              <h5><i class="icon fas fa-bookmark"></i>Notificacion</h5>
+              <h4>¿Esta seguro de eliminar esta Categoria?</h4> 
+              <br/> <h5><b>{{object.nombre}}</b></h5>
+            </div>
+
+        </div><!-- /.card-body -->
+        <div class="card-footer">
+          {% block footOptions %}
+            <button type="submit" class="btn btn-outline-primary btn-flat">
+              <i class="fas fa-trash"></i> Eliminar Registro
+            </button>
+            <a href="{{ list_url }}" type="submit" class="btn btn-outline-info btn-flat">
+              <i class="fas fa-times"></i> Cancelar
+            </a>
+          {% endblock %}
+        </div>
+      </form>
+    </div>
+
+{% endblock %}
+
+{% block jscript %}
+  <script>
+    
+    $('#formFields').on('submit', (ev) => {
+      ev.preventDefault();
+      
+      let parameters = $('#formFields').serializeArray();
+      console.log(parameters);
+      console.log(window.location.pathname)
+      $.ajax({
+        url: window.location.pathname,
+        type: 'POST',
+        data: parameters,
+        dataType: 'json'
+      }).done((data)=>{
+        if (!data.hasOwnProperty('error')){
+          location.href = '{{ list_url }}';
+          return false
+        }
+        message_error(data.error)
+      })
+    });
+  </script>
+{% endblock %}

@@ -13,8 +13,8 @@
       <th scope="col">{{categoria.id}}</th>
       <th scope="col">{{categoria.nombre}}</th>
       <th scope="col">
-        <button type="button" class="btn btn-outline-success btn-xs btn-flat"><i class="fas fa-edit"></i></button>
-        <button type="button" class="btn btn-outline-danger btn-xs btn-flat"><i class="fas fa-trash-alt"></i></button>
+        <a href="{% url 'erp:categoriaEdit' categoria.id %}" type="button" class="btn btn-outline-success btn-xs btn-flat"><i class="fas fa-edit"></i></a>
+        <a href="{% url 'erp:categoriaDelete' categoria.id %}" type="button" class="btn btn-outline-danger btn-xs btn-flat"><i class="fas fa-trash-alt"></i></a>
       </th>
     </tr>
   {% endfor %}

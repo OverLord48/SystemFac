@@ -82,6 +82,7 @@ class Categorias (models.Model):
     class Meta:
         verbose_name = 'Categoria'
         verbose_name_plural = 'Categorias'
+    
     def toJSON(self):
         item = model_to_dict(self)
         return item
@@ -104,4 +105,3 @@ class Detalles_venta (models.Model):
     subtotal = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     venta_id = models.ForeignKey(Ventas, on_delete=models.CASCADE)
     producto_id = models.ForeignKey(Categorias, on_delete=models.CASCADE)
-
