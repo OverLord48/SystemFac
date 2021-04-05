@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect,csrf_exempt
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, FormView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, FormView, TemplateView
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
 from core.erp.models import *
@@ -17,12 +17,21 @@ from core.erp.form import *
 #     }
 #     return render(request, 'categoria/list.html', vals)
 
+class DashboardTemplateView(TemplateView):
+    template_name = 'dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Home'
+        return context
+
 class CategoriaListView(ListView):
     model = Categorias
     template_name = 'categoria/list.html'
 
     @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):        
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request,*args, **kwargs):
@@ -39,18 +48,23 @@ class CategoriaListView(ListView):
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Listado de categorias'
         context['create_url'] = reverse_lazy('erp:categoriaCreate')
         return context
-     
+
 class CategoriaCreateView(CreateView):
     model = Categorias
     form_class = CategoriaForm
     template_name = 'categoria/create.html'
     success_url = reverse_lazy('erp:categorialist')
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
 
     def post(self, request,*args, **kwargs):
         data = {}
@@ -77,7 +91,7 @@ class CategoriaCreateView(CreateView):
     #     context = self.get_context_data(**kwargs)
     #     context['form'] = form
     #     return render(request, self.template_name, context)
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Crear Categoria'
@@ -91,6 +105,7 @@ class CategoriaUpdateView(UpdateView):
     template_name = 'categoria/create.html'
     success_url = reverse_lazy('erp:categorialist')
 
+    @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
         return super().dispatch(request, *args, **kwargs)
@@ -125,6 +140,7 @@ class CategoriaDeleteView(DeleteView):
     template_name = 'categoria/delete.html'
     success_url = reverse_lazy('erp:categorialist')
 
+    @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
         return super().dispatch(request, *args, **kwargs)
@@ -141,7 +157,7 @@ class CategoriaDeleteView(DeleteView):
         context['title'] = 'Eliminar una Categoria'
         context['list_url'] = reverse_lazy('erp:categorialist')
         return context
-        
+
 class CategoriaFormView(FormView):
     form_class = CategoriaForm
     template_name = 'categoria/create.html'
@@ -153,4 +169,3 @@ class CategoriaFormView(FormView):
         context['list_url'] = reverse_lazy('erp:categorialist')
         context['action'] = 'add'
         return context
-    
