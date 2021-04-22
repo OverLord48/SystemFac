@@ -15,7 +15,7 @@
 
             <div class="alert alert-info alert-dismissible">
               <h5><i class="icon fas fa-bookmark"></i>Notificacion</h5>
-              <h4>¿Esta seguro de eliminar esta Categoria?</h4> 
+              <h4>¿Esta seguro de eliminar {{object.nombre}}?</h4> 
               <br/> <h5><b>{{object.nombre}}</b></h5>
             </div>
 
@@ -37,10 +37,10 @@
 
 {% block jscript %}
   <script>
-    
+
     $('#formFields').on('submit', (ev) => {
       ev.preventDefault();
-      
+
       let parameters = $('#formFields').serializeArray();
       console.log(parameters);
       console.log(window.location.pathname)

@@ -1,5 +1,6 @@
 from django.urls import path
 from core.erp.views.categoria.views import *
+from core.erp.views.productos.views import *
 
 app_name = 'erp'
 
@@ -11,5 +12,5 @@ urlpatterns = [
     path('categoria/delete/<int:pk>/', CategoriaDeleteView.as_view(), name="categoriaDelete"),
     path('categoria/form/', CategoriaFormView.as_view(), name="categoriaForm"),
     # Productos
-    
+    path('productos/', ProductosListView.as_view(), name="produtoList"),
 ]

@@ -3,3 +3,4 @@ from core.erp.models import *
 # Register your models here.
 
 admin.site.register(Categorias)
+admin.site.register(Productos)

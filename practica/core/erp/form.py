@@ -7,10 +7,10 @@ class CategoriaForm(ModelForm):
         for form in self.visible_fields():
             form.field.widget.attrs['class'] = 'form-control'
         self.fields['nombre'].widget.attrs['autofocus'] =True
-    
+
     class Meta:
         model = Categorias
-        fields = '__all__' 
+        fields = '__all__'
 
         widgets = {
             'nombre' : TextInput(
@@ -25,4 +25,19 @@ class CategoriaForm(ModelForm):
                     'rows' : 3
                 }
             )
+        }
+class ProductosForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for form in self.visible_fields():
+            form.field.widget.attrs['class'] = 'form-control'
+        self.field['nombre'].widget.attrs['autofocus'] = True
+
+    class Meta:
+        model = Productos
+        fields = '__all__'
+
+        widgets = {
+            'nombre' : TextInput(attrs={'placeholder':'Nombre'}),
         }
