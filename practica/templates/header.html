@@ -18,17 +18,17 @@
             <a href="{% url 'erp:home' %}" class="nav-link">Home</a>
           </li>
           <li class="nav-item dropdown">
-            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Mantenimiento</a>
+            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Categorias</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
               <li><a href="{% url 'erp:categorialist' %}" class="dropdown-item">Todas las Categoria</a></li>
               <li><a href="{% url 'erp:categoriaCreate' %}" class="dropdown-item">Crear Categoria</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Mantenimiento</a>
+            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Productos</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="{% url 'erp:produtoList' %}" class="dropdown-item">Todos los productos</a></li>
-              <li><a href="{% url 'erp:categoriaCreate' %}" class="dropdown-item">Registrar productos</a></li>
+              <li><a href="{% url 'erp:productoList' %}" class="dropdown-item">Todos los productos</a></li>
+              <li><a href="{% url 'erp:productoCreate' %}" class="dropdown-item">Registrar productos</a></li>
             </ul>
           </li>
         </ul>

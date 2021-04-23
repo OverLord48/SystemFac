@@ -2,7 +2,7 @@
 
 {% block columns %}
   <th scope="col">Nro</th>
-  <th scope="col" class="text-center col-md-3">Nombre</th>
+  <th scope="col" class="text-center">Nombre</th>
   <th scope="col" class="text-center">Precio Unitario</th>
   <th scope="col" class="text-center">Categoria</th>
   <th scope="col" class="text-center">Opciones</th>
@@ -12,10 +12,10 @@
   {% for producto in object_list %}
     <tr>
       <th scope="col">{{producto.id}}</th>
-      <th scope="col" class="col-md-3 text-center">{{producto.nombre}}</th>
-      <th scope="col" class="col-md-3 text-center">{{producto.pvp}}</th>
-      <th scope="col" class="col-md-3 text-center">{{producto.categoria_id.nombre}}</th>
-      <th scope="col" class="col-md-3 text-center">
+      <th scope="col" class="text-center">{{producto.nombre}}</th>
+      <th scope="col" class="text-center">{{producto.pvp}}</th>
+      <th scope="col" class="text-center">{{producto.categoria_id.nombre}}</th>
+      <th scope="col" class="text-center">
         <a href="{% url 'erp:categoriaEdit' producto.id %}" type="button" class="btn btn-outline-success btn-xs btn-flat"><i class="fas fa-edit"></i></a>
         <a href="{% url 'erp:categoriaDelete' producto.id %}" type="button" class="btn btn-outline-danger btn-xs btn-flat"><i class="fas fa-trash-alt"></i></a>
       </th>
@@ -40,7 +40,7 @@
 
         $('.btnTest').on('click', ()=>{
           $.ajax({
-            url: '{% url 'erp:produtoList' %}',
+            url: '{% url 'erp:productoCreate' %}',
             type:"POST",
             data: {id:2},
             dataType: 'json'

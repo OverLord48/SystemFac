@@ -5,9 +5,9 @@ from django.views.decorators.csrf import csrf_protect,csrf_exempt
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, FormView, TemplateView
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
+from core.erp.mixins import *
 from core.erp.models import *
 from core.erp.form import *
-
 # @method_decorator(csrf_exempt)
 # def category_list(request):
 #     categorias = Categorias.objects.all()
@@ -25,7 +25,7 @@ class DashboardTemplateView(TemplateView):
         context['title'] = 'Home'
         return context
 
-class CategoriaListView(ListView):
+class CategoriaListView(IsSuperuserMixin,ListView):
     model = Categorias
     template_name = 'categoria/list.html'
 

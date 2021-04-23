@@ -13,26 +13,18 @@ class CategoriaForm(ModelForm):
         fields = '__all__'
 
         widgets = {
-            'nombre' : TextInput(
-                attrs={
-                    'placeholder': 'Nombre'
-                }
-            ),
+            'nombre' : TextInput(attrs={'placeholder': 'Nombre'}),
 
-            'descripcion' : Textarea(
-                attrs={
-                    'placeholder': 'Descripcion',
-                    'rows' : 3
-                }
-            )
-        }
+            'descripcion' : Textarea(attrs={'placeholder': 'Descripcion',
+                                            'rows' : 3})
+            }
 class ProductosForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for form in self.visible_fields():
             form.field.widget.attrs['class'] = 'form-control'
-        self.field['nombre'].widget.attrs['autofocus'] = True
+        self.fields['nombre'].widget.attrs['autofocus'] = True
 
     class Meta:
         model = Productos
@@ -40,4 +32,5 @@ class ProductosForm(ModelForm):
 
         widgets = {
             'nombre' : TextInput(attrs={'placeholder':'Nombre'}),
+            'pvp' : NumberInput(attrs={'placeholder':'Precio'})
         }
