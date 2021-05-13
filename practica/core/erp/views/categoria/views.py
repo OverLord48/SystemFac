@@ -1,9 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.decorators.csrf import csrf_protect,csrf_exempt
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, FormView, TemplateView
 from django.utils.decorators import method_decorator
+from django.contrib import messages
 from django.urls import reverse_lazy
 from core.erp.mixins import *
 from core.erp.models import *
@@ -25,12 +27,13 @@ class DashboardTemplateView(TemplateView):
         context['title'] = 'Home'
         return context
 
-class CategoriaListView(IsSuperuserMixin,ListView):
+class CategoriaListView(LoginRequiredMixin,ValidatePermissionRequiredMixin,ListView):
+    permission_required = ('erp.change_categorias','erp.delete_categorias')
     model = Categorias
     template_name = 'categoria/list.html'
 
     @method_decorator(csrf_exempt)
-    @method_decorator(login_required)
+    # @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -55,7 +58,9 @@ class CategoriaListView(IsSuperuserMixin,ListView):
         context['create_url'] = reverse_lazy('erp:categoriaCreate')
         return context
 
-class CategoriaCreateView(CreateView):
+class CategoriaCreateView(ValidatePermissionRequiredMixin,CreateView):
+    permission_required = ('erp.change_categorias','erp.delete_categorias')
+    url_redirect = reverse_lazy('erp:categorialist')
     model = Categorias
     form_class = CategoriaForm
     template_name = 'categoria/create.html'

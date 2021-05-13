@@ -27,7 +27,7 @@
           {% block content %}
               <h1>Bienvenido {{name}}</h1>
           {% endblock %}
-        
+
         </div>
       </div>
       <!-- /.content-wrapper -->
@@ -64,6 +64,19 @@
     <!--Personal Script-->
     <script src="{% static 'js/functions.js' %}"></script>
     {% block jscript %}{% endblock %}
-    
+    <script>
+      {% if messages %}
+        var html = '<p>';
+          {% for message in messages %}
+            html+='{{message}}<br>';
+          {% endfor %}
+          html+='</p>';
+          Swal.fire({
+            title: 'Error!',
+            html:html,
+            icon:'error'
+          })
+      {% endif %}
+    </script>
   </body>
 </html>
